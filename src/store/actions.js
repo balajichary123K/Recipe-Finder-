@@ -1,22 +1,31 @@
 import axiosClient from '@/axiosClient'
 
-export function searchMeals({commit}, keyword) {
-  return axiosClient.get(`search.php?s=${keyword}`)
-    .then(({data}) => {
-      commit('setSearchedMeals', data.meals)
-    })
+export async function searchMeals({commit}, keyword) {
+  commit('setLoading', true)
+  try {
+    const {data} = await axiosClient.get(`search.php?s=${keyword}`)
+    commit('setSearchedMeals', data.meals)
+  } finally {
+    commit('setLoading', false)
+  }
 }
 
-export function searchMealsByLetter({commit}, letter) {
-  return axiosClient.get(`search.php?f=${letter}`)
-    .then(({data}) => {
-      commit('setMealsByLetter', data.meals)
-    })
+export async function searchMealsByLetter({commit}, letter) {
+  commit('setLoading', true)
+  try {
+    const {data} = await axiosClient.get(`search.php?f=${letter}`)
+    commit('setMealsByLetter', data.meals)
+  } finally {
+    commit('setLoading', false)
+  }
 }
 
-export function searchMealsByIngredient({commit}, ingredient) {
-  return axiosClient.get(`filter.php?i=${ingredient}`)
-    .then(({data}) => {
-      commit('setMealsByIngredient', data.meals)
-    })
+export async function searchMealsByIngredient({commit}, ingredient) {
+  commit('setLoading', true)
+  try {
+    const {data} = await axiosClient.get(`filter.php?i=${ingredient}`)
+    commit('setMealsByIngredient', data.meals)
+  } finally {
+    commit('setLoading', false)
+  }
 }

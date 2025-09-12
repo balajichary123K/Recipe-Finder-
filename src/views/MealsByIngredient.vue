@@ -6,9 +6,16 @@
       placeholder="Search by Ingredient"
       @keyup.enter="searchByIngredient">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <MealCard v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
-    </div>
+      <div v-if="loading" class="text-center py-5 text-purple-600 font-bold">
+        🔄 Loading meals...
+      </div>
+      <div v-else-if="meals.length === 0" class="text-center py-5 text-red-600 font-bold">
+        ❌ No meals found with this ingredient
+      </div>
+      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <MealCard v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
+      </div>
+
   </div>
 </template>
 

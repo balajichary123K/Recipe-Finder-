@@ -2,5 +2,6 @@ export default {
   searchedMeals: [],
   mealsByLetter: [],
   mealsByIngredient: [],
-  favorites: []
+  favorites: [],
+  loading: false,   // ✅ new
 }

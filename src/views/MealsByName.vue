@@ -6,7 +6,18 @@
       placeholder="Search for Meals"
       @keyup.enter="searchMeals">
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <!-- Loading state -->
+    <div v-if="loading" class="text-center py-5 text-purple-600 font-bold">
+      🔄 Loading meals...
+    </div>
+
+    <!-- No results -->
+    <div v-else-if="meals.length === 0" class="text-center py-5 text-red-600 font-bold">
+      ❌ Recipe not found
+    </div>
+
+    <!-- Meals -->
+    <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <MealCard v-for="meal in meals" :key="meal.idMeal" :meal="meal" />
     </div>
   </div>
@@ -20,10 +31,11 @@ import MealCard from '@/components/MealCard.vue'
 
 const keyword = ref('')
 const meals = computed(() => store.state.searchedMeals)
+const loading = computed(() => store.state.loading)
 const route = useRoute()
 
 function searchMeals() {
-  store.dispatch('searchMeals', keyword.value || 'Arrabiata') // default meals
+  store.dispatch('searchMeals', keyword.value || 'Arrabiata')
 }
 
 onMounted(() => {
