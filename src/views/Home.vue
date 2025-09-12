@@ -28,7 +28,7 @@ async function loadRandomMeals() {
 
   try {
     const requests = []
-    for (let i = 0; i < 9; i++) {   // fetch 9 random recipes
+    for (let i = 0; i < 12; i++) {   // fetch 9 random recipes
       requests.push(axiosClient.get('random.php'))
     }
     const responses = await Promise.all(requests)
